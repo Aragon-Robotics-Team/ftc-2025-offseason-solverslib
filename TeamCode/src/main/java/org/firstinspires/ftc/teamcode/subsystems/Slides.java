@@ -3,49 +3,43 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.controller.PIDController;
+import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
-public class Slides {
-    DcMotorEx slideLeft;
-    DcMotorEx slideRight;
+public class Slides extends SubsystemBase {
+    SolversMotor slideLeft, slideRight;
+
+    PIDController pidController;
+    private double kP, kI =0, kD = 0;
+
+
+    private double powerThreshold = 0.2;
 
     public int targetPos = 0;
     public int low = 0;
     public int med = 200;
     public int high = 500;
 
-    public int power = 0;
-
-    private PIDController controller;
-    private static double p = 0, i = 0, d = 0;
-    private boolean usingpid = false;
-    private double pid;
-
     public void init(HardwareMap hm){
-        controller = new PIDController(p,i,d);
+        pidController.setPID(0.1, 0.1, 0.1);
 
-        slideLeft = hm.get(DcMotorEx.class, "slideLeft");
-        slideRight = hm.get(DcMotorEx.class, "slideRight");
+        SolversMotor slideLeft = new SolversMotor(hm.get(DcMotorEx.class, "slideL"), powerThreshold);
+        SolversMotor slideRight = new SolversMotor(hm.get(DcMotorEx.class, "slideR"), powerThreshold);
 
         slideLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        slideRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        slideLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        slideRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        pidController  = new PIDController(kP, kI, kD);
+
+        slideLeft.getPosition();
     }
 
-    public void Loop(){
-        if (usingpid){ //if usingpid = true
-            controller.setPID(p,i,d);
+    public void updatePID(){
+        slideLeft.setPower(powerThreshold);
+        slideRight.setPower(powerThreshold);
 
-            pid = controller.calculate(slideRight.getCurrentPosition(), targetPos); //calc output
 
-            slideLeft.setPower(pid); //do said output
-            slideRight.setPower(pid);
-        }
-        else { //if usingpid = false
-            slideLeft.setPower(power);
-            slideRight.setPower(power);
-        }
     }
 
     public void setTargetPos(int targetPos){
