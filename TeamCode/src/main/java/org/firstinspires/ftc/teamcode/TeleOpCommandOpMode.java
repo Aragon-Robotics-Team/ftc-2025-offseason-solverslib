@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 
+import org.firstinspires.ftc.teamcode.commands.ScoochForwardCommand;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SlidesSubsystem;
 
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.SlidesSubsystem;
 public class TeleOpCommandOpMode extends CommandOpMode {
     private DriveSubsystem drive;
     private SlidesSubsystem slides;
+    private ScoochForwardCommand scoochForwardCommand;
     @Override
     public void initialize() {
         //Initializing hardware
@@ -17,6 +19,6 @@ public class TeleOpCommandOpMode extends CommandOpMode {
         SlidesSubsystem slides = new SlidesSubsystem(hardwareMap, "slideL", "slideR");
 
         //Scheduling commands
-        schedule(Scoo);
+        schedule();
     }
 }
