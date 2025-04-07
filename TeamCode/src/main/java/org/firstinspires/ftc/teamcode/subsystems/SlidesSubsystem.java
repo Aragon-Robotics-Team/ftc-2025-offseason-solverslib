@@ -7,7 +7,7 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.controller.PIDController;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
-public class Slides extends SubsystemBase {
+public class SlidesSubsystem extends SubsystemBase {
     SolversMotor slideLeft, slideRight;
 
     PIDController pidController;
