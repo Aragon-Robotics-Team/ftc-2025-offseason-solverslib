@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.Subsystem;
+import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.commands.DriveForXCommand;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
@@ -13,7 +14,9 @@ import org.firstinspires.ftc.teamcode.subsystems.SlidesSubsystem;
 public class TeleOpCommandOpMode extends CommandOpMode {
     private DriveSubsystem drive;
     private SlidesSubsystem slides;
-    private DriveForXCommand scoochForwardCommand;
+    private DriveForXCommand driveForXCommand;
+    GamepadEx gp1 = new GamepadEx(gamepad1);
+    GamepadEx gp2 = new GamepadEx(gamepad2);
     @Override
     public void initialize() {
         //Initialize hardware
@@ -21,7 +24,7 @@ public class TeleOpCommandOpMode extends CommandOpMode {
         SlidesSubsystem slides = new SlidesSubsystem(hardwareMap, "slideL", "slideR");
 
         //Schedule commands
-        schedule();
+        schedule(driveForXCommand);
     }
     @Override
     public void run() {
