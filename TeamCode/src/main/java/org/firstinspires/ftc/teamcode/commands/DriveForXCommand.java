@@ -26,12 +26,16 @@ public class DriveForXCommand extends CommandBase {
     @Override
     public void initialize() {
         //Drive in +y and start timer
-        drive.setDriveVectors(0, 1, 0);
+        drive.setDriveVectors(driveX, driveY, driveRX);
         timer.reset();
     }
     @Override
     public boolean isFinished() {
         //Return true when timer>driveTime
-        return timer.time(TimeUnit.MILLISECONDS) > driveTime_ms;
+        if (timer.time(TimeUnit.MILLISECONDS) > driveTime_ms) {
+            drive.setDriveVectors(0,0,0);
+            return true;
+        }
+        return false;
     }
 }
