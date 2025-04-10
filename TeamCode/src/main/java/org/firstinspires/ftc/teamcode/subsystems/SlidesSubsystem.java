@@ -8,21 +8,19 @@ import com.seattlesolvers.solverslib.controller.PIDController;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
 public class SlidesSubsystem extends SubsystemBase {
-    SolversMotor slideLeft, slideRight;
+    public SolversMotor slideLeft;
+    public SolversMotor slideRight;
+
+    public int targetPos;
 
     PIDController pidController;
     private double kP = 0, kI = 0, kD = 0;
 
     public double slidePowerThreshold = 0.1;
 
-    public int targetPos = 0;
-    public int low = 0;
-    public int med = 200;
-    public int high = 500;
-
     public SlidesSubsystem(final HardwareMap hm, final String left, final String right) {
-        SolversMotor slideleft = new SolversMotor(hm.get(DcMotorEx.class, left), slidePowerThreshold);
-        SolversMotor slideright = new SolversMotor(hm.get(DcMotorEx.class, right), slidePowerThreshold);
+        slideLeft = new SolversMotor(hm.get(DcMotorEx.class, left), slidePowerThreshold);
+        slideRight = new SolversMotor(hm.get(DcMotorEx.class, right), slidePowerThreshold);
 
         pidController = new PIDController(kP, kI, kD);
 
@@ -37,19 +35,19 @@ public class SlidesSubsystem extends SubsystemBase {
     }
 
 //  dunno if i need
-//    public void setTargetPos(int targetPos){
-//        this.targetPos = targetPos;
+    public void setTargetPos(int targetPos){
+        this.targetPos = targetPos;
+    }
+//
+//    public void setHigh(){
+//        targetPos = high;
 //    }
-
-    public void setHigh(){
-        targetPos = high;
-    }
-
-    public void setMed(){
-        targetPos = med;
-    }
-
-    public void setLow(){
-        targetPos = low;
-    }
+//
+//    public void setMed(){
+//        targetPos = med;
+//    }
+//
+//    public void setLow(){
+//        targetPos = low;
+//    }
 }

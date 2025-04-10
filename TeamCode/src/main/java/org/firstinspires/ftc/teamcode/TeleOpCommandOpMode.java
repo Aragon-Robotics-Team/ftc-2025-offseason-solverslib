@@ -7,6 +7,9 @@ import com.seattlesolvers.solverslib.command.Subsystem;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.commands.DriveForXCommand;
+import org.firstinspires.ftc.teamcode.commands.SlidesHigh;
+import org.firstinspires.ftc.teamcode.commands.SlidesLow;
+import org.firstinspires.ftc.teamcode.commands.SlidesMed;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SlidesSubsystem;
 
@@ -15,6 +18,9 @@ public class TeleOpCommandOpMode extends CommandOpMode {
     private DriveSubsystem drive;
     private SlidesSubsystem slides;
     private DriveForXCommand driveForXCommand;
+    private SlidesHigh slidesHigh;
+    private SlidesMed slidesMed;
+    private SlidesLow slidesLow;
     GamepadEx gp1 = new GamepadEx(gamepad1);
     GamepadEx gp2 = new GamepadEx(gamepad2);
     @Override

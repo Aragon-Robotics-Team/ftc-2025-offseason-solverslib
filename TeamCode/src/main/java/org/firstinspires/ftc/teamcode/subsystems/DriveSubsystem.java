@@ -8,7 +8,7 @@ import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 public class DriveSubsystem extends SubsystemBase {
     SolversMotor leftFront, leftRight, rightFront, rightRear;
     private double drivePowerThreshold = 0.01;
-    double frontLeftPower, backLeftPower, frontRightPower, backRightPower
+    double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
     public DriveSubsystem(final HardwareMap hm, final String lf, final String lr, final String rf, final String rr) {
         SolversMotor leftFront = new SolversMotor(hm.get(DcMotorEx.class, lf), drivePowerThreshold);
         SolversMotor leftRight = new SolversMotor(hm.get(DcMotorEx.class, lr), drivePowerThreshold);
