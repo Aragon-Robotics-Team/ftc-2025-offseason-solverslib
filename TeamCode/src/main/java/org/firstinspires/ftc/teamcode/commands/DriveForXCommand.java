@@ -32,10 +32,9 @@ public class DriveForXCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         //Return true when timer>driveTime
-        if (timer.time(TimeUnit.MILLISECONDS) > driveTime_ms) {
-            drive.setDriveVectors(0,0,0);
-            return true;
-        }
-        return false;
+        return timer.time(TimeUnit.MILLISECONDS) > driveTime_ms;
+    }
+    public void end() {
+        drive.setDriveVectors(0,0,0);
     }
 }
