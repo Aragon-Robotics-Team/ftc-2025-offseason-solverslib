@@ -11,7 +11,7 @@ public class DriveSubsystem extends SubsystemBase {
     double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
     public DriveSubsystem(final HardwareMap hm, final String lf, final String lr, final String rf, final String rr) {
         SolversMotor leftFront = new SolversMotor(hm.get(DcMotorEx.class, lf), drivePowerThreshold);
-        SolversMotor leftRight = new SolversMotor(hm.get(DcMotorEx.class, lr), drivePowerThreshold);
+        SolversMotor leftRear = new SolversMotor(hm.get(DcMotorEx.class, lr), drivePowerThreshold);
         SolversMotor rightFront = new SolversMotor(hm.get(DcMotorEx.class, rf), drivePowerThreshold);
         SolversMotor rightRear = new SolversMotor(hm.get(DcMotorEx.class, rr), drivePowerThreshold);
     }
