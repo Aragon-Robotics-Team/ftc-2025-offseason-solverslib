@@ -28,26 +28,13 @@ public class SlidesSubsystem extends SubsystemBase {
         slideRight.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
-    public void Loop(){
+    public void periodic(){
         double output = pidController.calculate(slideLeft.getPosition(), targetPos); // calculates output needed
         slideLeft.setPower(output);
         slideRight.setPower(output);
     }
-
-//  dunno if i need
+    
     public void setTargetPos(int targetPos){
         this.targetPos = targetPos;
     }
-//
-//    public void setHigh(){
-//        targetPos = high;
-//    }
-//
-//    public void setMed(){
-//        targetPos = med;
-//    }
-//
-//    public void setLow(){
-//        targetPos = low;
-//    }
 }
