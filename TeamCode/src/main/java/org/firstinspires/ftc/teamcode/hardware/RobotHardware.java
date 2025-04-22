@@ -6,15 +6,19 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
+import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
+
 import java.util.List;
 
 public class RobotHardware {
+    public List<LynxModule> allHubs;
     public SolversMotor leftFront;
     public SolversMotor leftRear;
     public SolversMotor rightFront;
     public SolversMotor rightRear;
     public SolversMotor slideLeft;
     public SolversMotor slideRight;
+    public DriveSubsystem drive;
     private static RobotHardware instance = new RobotHardware();
     public static RobotHardware getInstance() {
         if (instance == null) {
@@ -43,12 +47,14 @@ public class RobotHardware {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        List<LynxModule> allHubs = hm.getAll(LynxModule.class);
-
+        allHubs = hm.getAll(LynxModule.class);
         for (LynxModule hub : allHubs) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         }
 
-
+        drive = new DriveSubsystem();
+    }
+    public void initSubsystems() { //Run after registering subsystems to scheduler
+        drive.init();
     }
 }

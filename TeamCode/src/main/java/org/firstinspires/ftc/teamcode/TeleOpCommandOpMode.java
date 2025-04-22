@@ -6,6 +6,7 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
+import com.seattlesolvers.solverslib.command.Robot;
 import com.seattlesolvers.solverslib.command.Subsystem;
 import com.seattlesolvers.solverslib.command.button.Button;
 import com.seattlesolvers.solverslib.command.button.GamepadButton;
@@ -22,36 +23,33 @@ import org.firstinspires.ftc.teamcode.subsystems.SlidesSubsystem;
 
 @TeleOp
 public class TeleOpCommandOpMode extends CommandOpMode {
-    private RobotHardware robot;
-    private DriveSubsystem drive;
-    private SlidesSubsystem slides;
-    private DriveForXCommand driveForXCommand;
-    private SlidesHigh slidesHigh;
-    private SlidesMed slidesMed;
-    private SlidesLow slidesLow;
+    private final RobotHardware robot = RobotHardware.getInstance();
     GamepadEx gp1 = new GamepadEx(gamepad1);
     GamepadEx gp2 = new GamepadEx(gamepad2);
     @Override
     public void initialize() {
-        robot.init(hardwareMap);
         super.reset(); //Reset command scheduler
 
-        //Initialize hardware
-        DriveSubsystem drive = new DriveSubsystem(hardwareMap, "leftFront", "leftRear", "rightFront", "rightRear");
-        SlidesSubsystem slides = new SlidesSubsystem(hardwareMap, "slideL", "slideR");
-        register(drive, slides);
-        //Schedule commands
-        schedule();
+        robot.init(hardwareMap);
 
-        //init butons
+        register(robot.drive);
+
+        robot.initSubsystems();
+
+        //init buttons
         Button slidesUpButton = new GamepadButton(
                 gp1, GamepadKeys.Button.Y
         );
 
-        slidesUpButton.whenPressed(new SlidesHigh(slides)).whenReleased(new SlidesLow(slides));
+        //Schedule commands
+        schedule();
+
+        slidesUpButton.whenPressed(new SlidesHigh(robot.slides)).whenReleased(new SlidesLow(robot.slides));
     }
     public void run() {
         telemetry.update();
-        robot.all
+        for (LynxModule h : robot.allHubs) {
+            h.clearBulkCache();
+        }
     }
 }

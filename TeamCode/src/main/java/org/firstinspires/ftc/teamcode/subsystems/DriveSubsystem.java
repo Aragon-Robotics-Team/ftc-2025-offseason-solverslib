@@ -5,15 +5,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
+import org.firstinspires.ftc.teamcode.hardware.RobotHardware;
+
+
 public class DriveSubsystem extends SubsystemBase {
-    SolversMotor leftFront, leftRight, rightFront, rightRear;
-    private double drivePowerThreshold = 0.01;
+
+    private final RobotHardware robot = RobotHardware.getInstance();
+
     double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
-    public DriveSubsystem(final HardwareMap hm, final String lf, final String lr, final String rf, final String rr) {
-        SolversMotor leftFront = new SolversMotor(hm.get(DcMotorEx.class, lf), drivePowerThreshold);
-        SolversMotor leftRear = new SolversMotor(hm.get(DcMotorEx.class, lr), drivePowerThreshold);
-        SolversMotor rightFront = new SolversMotor(hm.get(DcMotorEx.class, rf), drivePowerThreshold);
-        SolversMotor rightRear = new SolversMotor(hm.get(DcMotorEx.class, rr), drivePowerThreshold);
+
+    public void init() {
+        frontLeftPower = 0;
+        backLeftPower = 0;
+        frontRightPower = 0;
+        backRightPower = 0;
     }
     public void setDriveVectors(double x, double y, double rx) {
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
@@ -24,9 +29,9 @@ public class DriveSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        leftFront.setPower(frontLeftPower);
-        leftRight.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightRear.setPower(backRightPower);
+        robot.leftFront.setPower(frontLeftPower);
+        robot.leftRear.setPower(backLeftPower);
+        robot.rightFront.setPower(frontRightPower);
+        robot.rightRear.setPower(backRightPower);
     }
 }
