@@ -3,10 +3,12 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.SlidesSubsystem;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class RobotHardware {
     public SolversMotor slideLeft;
     public SolversMotor slideRight;
     public DriveSubsystem drive;
+    public SlidesSubsystem slides;
     private static RobotHardware instance = new RobotHardware();
     public static RobotHardware getInstance() {
         if (instance == null) {
@@ -27,7 +30,6 @@ public class RobotHardware {
         return instance;
     }
     public void init(HardwareMap hm) {
-
         leftFront = new SolversMotor(hm.get(DcMotorEx.class, "lf"), 0.01);
         leftRear = new SolversMotor(hm.get(DcMotorEx.class, "lr"), 0.01);
         rightFront = new SolversMotor(hm.get(DcMotorEx.class, "rf"), 0.01);
@@ -42,6 +44,9 @@ public class RobotHardware {
         slideLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slideRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        slideLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        slideRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -53,8 +58,10 @@ public class RobotHardware {
         }
 
         drive = new DriveSubsystem();
+        slides = new SlidesSubsystem();
     }
     public void initSubsystems() { //Run after registering subsystems to scheduler
         drive.init();
+        slides.init();
     }
 }
